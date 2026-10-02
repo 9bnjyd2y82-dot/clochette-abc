@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les 3 Sonnettes</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 15px;
+      font-size: 2.2rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .subtitle {
+      margin-bottom: 50px;
+      opacity: 0.7;
+      font-size: 1.1rem;
+    }
+    .sonnettes {
+      display: flex;
+      gap: 50px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .sonnette {
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 60px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 
+        0 15px 30px rgba(0,0,0,0.5),
+        inset 0 -5px 15px rgba(0,0,0,0.4),
+        inset 0 5px 15px rgba(255,255,255,0.05);
+      border: 5px solid #444;
+      user-select: none;
+      position: relative;
+    }
+    .sonnette:hover {
+      transform: scale(1.12) translateY(-8px);
+      box-shadow: 
+        0 25px 40px rgba(0,0,0,0.6),
+        inset 0 -5px 15px rgba(0,0,0,0.4);
+    }
+    .sonnette:active {
+      transform: scale(0.95);
+    }
+    .sonnette.gauche:hover,
+    .sonnette.droite:hover {
+      border-color: #666;
+    }
+    .sonnette.milieu {
+      background: linear-gradient(145deg, #e74c3c, #c0392b);
+      border-color: #e74c3c;
+      box-shadow: 
+        0 15px 30px rgba(231, 76, 60, 0.4),
+        inset 0 -5px 15px rgba(0,0,0,0.3),
+        inset 0 5px 15px rgba(255,255,255,0.1);
+    }
+    .sonnette.milieu:hover {
+      background: linear-gradient(145deg, #ff6b5b, #e74c3c);
+      box-shadow: 
+        0 25px 45px rgba(231, 76, 60, 0.6),
+        0 0 30px rgba(231, 76, 60, 0.4);
+    }
+    .label {
+      position: absolute;
+      bottom: -35px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      opacity: 0.6;
+      white-space: nowrap;
+    }
+    .milieu .label {
+      opacity: 1;
+      color: #ffb3ab;
+      font-weight: 600;
+    }
+    /* Animation de sonnerie */
+    @keyframes ring {
+      0%, 100% { transform: rotate(0deg); }
+      20% { transform: rotate(15deg); }
+      40% { transform: rotate(-15deg); }
+      60% { transform: rotate(10deg); }
+      80% { transform: rotate(-10deg); }
+    }
+    .ringing {
+      animation: ring 0.5s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔔 Les 3 Sonnettes</h1>
+    <p class="subtitle">Clique sur une sonnette...</p>
+    
+    <div class="sonnettes">
+      <!-- Sonnette de gauche -->
+      <div class="sonnette gauche" onclick="sonner(this, false)">
+        🔔
+        <span class="label">Gauche</span>
+      </div>
+      
+      <!-- SONNETTE DU MILIEU → REDIRECTION -->
+      <div class="sonnette milieu" onclick="sonner(this, true)">
+        🔔
+        <span class="label">Milieu ✨</span>
+      </div>
+      
+      <!-- Sonnette de droite -->
+      <div class="sonnette droite" onclick="sonner(this, false)">
+        🔔
+        <span class="label">Droite</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function sonner(element, redirect) {
+      // Animation de sonnerie
+      element.classList.add('ringing');
+      setTimeout(() => element.classList.remove('ringing'), 500);
+
+      if (redirect) {
+        // Petit délai pour voir l'animation avant de rediriger
+        setTimeout(() => {
+          window.location.href = 'https://abc-edhec.com/';
+        }, 400);
+      } else {
+        // Les autres sonnettes ne font rien (ou un petit message)
+        setTimeout(() => {
+          // Optionnel : on peut laisser vide pour un effet "mystère"
+        }, 300);
+      }
+    }
+  </script>
+</body>
+</html>
